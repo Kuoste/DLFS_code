@@ -1,10 +1,26 @@
-# Fork of Deep Learning From Scratch code
+# Fork of _Deep Learning From Scratch_ code
 
-Kuoste's fork is just for my learning purposes
+This fork is just for my learning purposes
 
 ---------------
 
 This repo contains all the code from the book [Deep Learning From Scratch](https://www.amazon.com/Deep-Learning-Scratch-Building-Principles/dp/1492041416), published by O'Reilly in September 2019.
+
+## Running notebooks in VS Code
+
+In addition to the creation of the venv (recommended):
+
+```bash
+python -m venv DeepLearnDebian
+source ./DeepLearnDebian/bin/activate
+```
+you should also install ipykernel and after that install a new kernel:
+```bash
+pip install ipykernel
+ipython kernel install --user --name=DeepLearnDebian
+```
+Now you should be able to select the kernel from the upper right corner in VS Code
+![image](https://github.com/user-attachments/assets/ff6b653a-e93c-4006-927e-9b46bdfc90ea)
 
 ## Structure
 
