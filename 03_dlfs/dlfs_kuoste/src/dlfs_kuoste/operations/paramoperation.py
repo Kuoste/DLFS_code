@@ -1,6 +1,4 @@
 from numpy import ndarray
-# from helpers import assert_same_shape
-# from operations import Operation
 from dlfs_kuoste import *
 
 class ParamOperation(Operation):

@@ -1,7 +1,7 @@
 @echo off
 
 if "%1"=="" (
-    echo Usage: install_local_package.bat [path_to_package]
+    echo Usage: build_and_install_package.bat [path_to_package]
     exit /b 1
 )
 

@@ -1,6 +1,6 @@
 from numpy import ndarray
 import numpy as np
-from operations import ParamOperation
+from dlfs_kuoste import *
 
 class BiasAdd(ParamOperation):
     '''

@@ -1,6 +1,6 @@
-from operations import ParamOperation
 from numpy import ndarray
 import numpy as np
+from dlfs_kuoste import *
 
 class WeightMultiply(ParamOperation):
     '''
