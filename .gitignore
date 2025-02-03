@@ -8,11 +8,14 @@
 *.txt
 
 *data/*
+
+
 *.pkl*
 
 *.pt
 *ubyte
   
 */utils/data*
+dist/
 
 *.vscode
