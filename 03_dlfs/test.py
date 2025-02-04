@@ -1,11 +1,7 @@
 from numpy import ndarray
 import numpy as np
-
 from dlfs_kuoste import *
 
-a = np.array([1, 2, 3, 4, 5])
-b = np.array([1, 2, 3, 4, 5])
-assert_same_shape(a, b)
 
 lr = NeuralNetwork(
     layers=[Dense(neurons=1,
@@ -37,7 +33,7 @@ dl = NeuralNetwork(
 USE_BOSTON = False
 
 if USE_BOSTON:
-  print("Using Boston")
+  print("Loading Boston dataset...")
   import pandas as pd
   data_url = "http://lib.stat.cmu.edu/datasets/boston"
   raw_df = pd.read_csv(data_url, sep=r"\s+", skiprows=22, header=None)
@@ -45,12 +41,13 @@ if USE_BOSTON:
   target = raw_df.values[1::2, 2]
   features = ["CRIM", "ZN", "INDUS", "CHAS", "NOX", "RM", "AGE", "DIS", "RAD", "TAX", "PTRATIO", "B", "LSTAT"]
 else:
-  print("Using California")
+  print("Loading California dataset...")
   from sklearn.datasets import fetch_california_housing
   housing = fetch_california_housing()
   data = housing.data
   target = housing.target
   features = housing.feature_names  # If you need feature names
+print("Done, data shape: ", data.shape)
 
 # Scaling the data
 from sklearn.preprocessing import StandardScaler
@@ -77,10 +74,9 @@ X_train, X_test, y_train, y_test = train_test_split(data, target, test_size=0.3,
 # make target 2d array
 y_train, y_test = to_2d_np(y_train), to_2d_np(y_test)
 
-
-
-# Training the model
-trainer = Trainer(lr, SGD(lr=0.001))
+learnrate = 0.001
+print("Training linear regression model, learning rate ", learnrate)
+trainer = Trainer(lr, SGD(lr=learnrate))
 
 trainer.fit(X_train, y_train, X_test, y_test,
        epochs = 50,
@@ -88,3 +84,28 @@ trainer.fit(X_train, y_train, X_test, y_test,
        seed=20190501);
 print()
 eval_regression_model(lr, X_test, y_test)
+print()
+
+learnrate = 0.01
+print("Training neural network model. learning rate ", learnrate)
+trainer = Trainer(nn, SGD(lr=learnrate))
+
+trainer.fit(X_train, y_train, X_test, y_test,
+       epochs = 50,
+       eval_every = 10,
+       seed=20190501);
+print()
+eval_regression_model(nn, X_test, y_test)
+print()
+
+learnrate = 0.01
+print("Training deep neural network model, learning rate ", learnrate)
+trainer = Trainer(dl, SGD(lr=learnrate))
+
+trainer.fit(X_train, y_train, X_test, y_test,
+       epochs = 50,
+       eval_every = 10,
+       seed=20190501);
+print()
+eval_regression_model(dl, X_test, y_test)
+print()
