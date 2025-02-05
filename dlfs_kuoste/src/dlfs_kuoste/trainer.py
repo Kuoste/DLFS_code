@@ -1,20 +1,16 @@
-from dlfs_kuoste import *
+from dlfs_kuoste import neuralnetworks, optimizers, helpers
 from numpy import ndarray
 import numpy as np
 from typing import Tuple, Generator
 from copy import deepcopy
-
-def permute_data(X, y):
-    perm = np.random.permutation(X.shape[0])
-    return X[perm], y[perm]
 
 class Trainer(object):
     '''
     Trains a neural network
     '''
     def __init__(self,
-                 net: NeuralNetwork,
-                 optim: Optimizer) -> None:
+                 net: neuralnetworks.NeuralNetwork,
+                 optim: optimizers.Optimizer) -> None:
         '''
         Requires a neural network and an optimizer in order for training to occur. 
         Assign the neural network as an instance variable to the optimizer.
@@ -71,7 +67,7 @@ class Trainer(object):
                 # for early stopping
                 last_model = deepcopy(self.net)
 
-            X_train, y_train = permute_data(X_train, y_train)
+            X_train, y_train = helpers.permute_data(X_train, y_train)
 
             batch_generator = self.generate_batches(X_train, y_train,
                                                     batch_size)

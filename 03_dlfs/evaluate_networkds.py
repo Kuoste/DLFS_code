@@ -1,32 +1,33 @@
 from numpy import ndarray
 import numpy as np
-from dlfs_kuoste import *
+from dlfs_kuoste import Trainer, losses, operations, neuralnetworks, optimizers, layers
 
 
-lr = NeuralNetwork(
-    layers=[Dense(neurons=1,
-                   activation=Linear())],
-    loss=MeanSquaredError(),
+
+lr = neuralnetworks.NeuralNetwork(
+    layers=[layers.Dense(neurons=1,
+                   activation=operations.Linear())],
+    loss=losses.MeanSquaredError(),
     seed=20190501
 )
 
-nn = NeuralNetwork(
-    layers=[Dense(neurons=13,
-                   activation=Sigmoid()),
-            Dense(neurons=1,
-                   activation=Linear())],
-    loss=MeanSquaredError(),
+nn = neuralnetworks.NeuralNetwork(
+    layers=[layers.Dense(neurons=13,
+                   activation=operations.Sigmoid()),
+            layers.Dense(neurons=1,
+                   activation=operations.Linear())],
+    loss=losses.MeanSquaredError(),
     seed=20190501
 )
 
-dl = NeuralNetwork(
-    layers=[Dense(neurons=13,
-                   activation=Sigmoid()),
-            Dense(neurons=13,
-                   activation=Sigmoid()),
-            Dense(neurons=1,
-                   activation=Linear())],
-    loss=MeanSquaredError(),
+dl = neuralnetworks.NeuralNetwork(
+    layers=[layers.Dense(neurons=13,
+                   activation=operations.Sigmoid()),
+            layers.Dense(neurons=13,
+                   activation=operations.Sigmoid()),
+            layers.Dense(neurons=1,
+                   activation=operations.Linear())],
+    loss=losses.MeanSquaredError(),
     seed=20190501
 )
 
@@ -76,36 +77,36 @@ y_train, y_test = to_2d_np(y_train), to_2d_np(y_test)
 
 learnrate = 0.001
 print("Training linear regression model, learning rate ", learnrate)
-trainer = Trainer(lr, SGD(lr=learnrate))
+trainer = Trainer(lr, optimizers.SGD(lr=learnrate))
 
 trainer.fit(X_train, y_train, X_test, y_test,
        epochs = 50,
        eval_every = 10,
        seed=20190501);
 print()
-eval_regression_model(lr, X_test, y_test)
+neuralnetworks.eval_regression_model(lr, X_test, y_test)
 print()
 
 learnrate = 0.01
 print("Training neural network model. learning rate ", learnrate)
-trainer = Trainer(nn, SGD(lr=learnrate))
+trainer = Trainer(nn, optimizers.SGD(lr=learnrate))
 
 trainer.fit(X_train, y_train, X_test, y_test,
        epochs = 50,
        eval_every = 10,
        seed=20190501);
 print()
-eval_regression_model(nn, X_test, y_test)
+neuralnetworks.eval_regression_model(nn, X_test, y_test)
 print()
 
 learnrate = 0.01
 print("Training deep neural network model, learning rate ", learnrate)
-trainer = Trainer(dl, SGD(lr=learnrate))
+trainer = Trainer(dl, optimizers.SGD(lr=learnrate))
 
 trainer.fit(X_train, y_train, X_test, y_test,
        epochs = 50,
        eval_every = 10,
        seed=20190501);
 print()
-eval_regression_model(dl, X_test, y_test)
+neuralnetworks.eval_regression_model(dl, X_test, y_test)
 print()

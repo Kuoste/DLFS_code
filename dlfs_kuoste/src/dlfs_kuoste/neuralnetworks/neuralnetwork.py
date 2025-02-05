@@ -1,15 +1,15 @@
 from typing import List
 from numpy import ndarray
 import numpy as np
-from dlfs_kuoste import *
+from dlfs_kuoste import layers, losses
 
 class NeuralNetwork(object):
     '''
     The class for a neural network.
     '''
     def __init__(self, 
-                 layers: List[Layer],
-                 loss: Loss,
+                 layers: List[layers.Layer],
+                 loss: losses.Loss,
                  seed: int = 1) -> None:
         '''
         Neural networks need layers, and a loss.

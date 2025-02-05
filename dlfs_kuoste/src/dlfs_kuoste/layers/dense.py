@@ -1,14 +1,14 @@
-from dlfs_kuoste import *
+from dlfs_kuoste import layers, operations
 from numpy import ndarray
 import numpy as np
 
-class Dense(Layer):
+class Dense(layers.Layer):
     '''
     A fully connected layer which inherits from "Layer"
     '''
     def __init__(self,
                  neurons: int,
-                 activation: Operation = Sigmoid()):
+                 activation: operations.Operation = operations.Sigmoid()):
         '''
         Requires an activation function upon initialization
         '''
@@ -30,8 +30,8 @@ class Dense(Layer):
         # bias
         self.params.append(np.random.randn(1, self.neurons))
 
-        self.operations = [WeightMultiply(self.params[0]),
-                           BiasAdd(self.params[1]),
+        self.operations = [operations.WeightMultiply(self.params[0]),
+                           operations.BiasAdd(self.params[1]),
                            self.activation]
 
         return None

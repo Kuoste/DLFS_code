@@ -1,8 +1,8 @@
 from numpy import ndarray
 import numpy as np
-from dlfs_kuoste import *
+from dlfs_kuoste import operations
 
-class BiasAdd(ParamOperation):
+class BiasAdd(operations.ParamOperation):
     '''
     Compute bias addition.
     '''

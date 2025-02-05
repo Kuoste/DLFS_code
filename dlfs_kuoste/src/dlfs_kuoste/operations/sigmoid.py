@@ -1,8 +1,8 @@
-from dlfs_kuoste import *
+from dlfs_kuoste import operations
 from numpy import ndarray
 import numpy as np
 
-class Sigmoid(Operation):
+class Sigmoid(operations.Operation):
     '''
     Sigmoid activation function.
     '''

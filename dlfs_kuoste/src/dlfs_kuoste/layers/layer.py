@@ -1,7 +1,7 @@
 
 from numpy import ndarray
 from typing import List
-from dlfs_kuoste import Operation, ParamOperation, assert_same_shape
+from dlfs_kuoste import operations, helpers
 
 class Layer(object):
     '''
@@ -17,7 +17,7 @@ class Layer(object):
         self.first = True
         self.params: List[ndarray] = []
         self.param_grads: List[ndarray] = []
-        self.operations: List[Operation] = []
+        self.operations: List[operations.Operation] = []
 
     def _setup_layer(self, num_in: int) -> None:
         '''
@@ -49,10 +49,10 @@ class Layer(object):
         Checks appropriate shapes
         '''
 
-        assert_same_shape(self.output, output_grad)
+        helpers.assert_same_shape(self.output, output_grad)
 
-        for operation in reversed(self.operations):
-            output_grad = operation.backward(output_grad)
+        for op in reversed(self.operations):
+            output_grad = op.backward(output_grad)
 
         input_grad = output_grad
         
@@ -66,9 +66,9 @@ class Layer(object):
         '''
 
         self.param_grads = []
-        for operation in self.operations:
-            if issubclass(operation.__class__, ParamOperation):
-                self.param_grads.append(operation.param_grad)
+        for op in self.operations:
+            if issubclass(op.__class__, operations.ParamOperation):
+                self.param_grads.append(op.param_grad)
 
     def _params(self) -> ndarray:
         '''
@@ -76,6 +76,6 @@ class Layer(object):
         '''
 
         self.params = []
-        for operation in self.operations:
-            if issubclass(operation.__class__, ParamOperation):
-                self.params.append(operation.param)
+        for op in self.operations:
+            if issubclass(op.__class__, operations.ParamOperation):
+                self.params.append(op.param)
