@@ -1,6 +1,5 @@
-#from helpers import assert_same_shape
 from numpy import ndarray
-from dlfs_kuoste import *
+from dlfs_kuoste import helpers
 
 class Operation(object):
     '''
@@ -26,11 +25,11 @@ class Operation(object):
         Calls the self._input_grad() function.
         Checks that the appropriate shapes match.
         '''
-        assert_same_shape(self.output, output_grad)
+        helpers.assert_same_shape(self.output, output_grad)
 
         self.input_grad = self._input_grad(output_grad)
 
-        assert_same_shape(self.input_, self.input_grad)
+        helpers.assert_same_shape(self.input_, self.input_grad)
         return self.input_grad
 
 

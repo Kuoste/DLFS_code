@@ -1,5 +1,5 @@
 from numpy import ndarray
-from dlfs_kuoste import assert_same_shape
+from dlfs_kuoste import helpers
 
 class Loss(object):
     '''
@@ -14,7 +14,7 @@ class Loss(object):
         '''
         Computes the actual loss value
         '''
-        assert_same_shape(prediction, target)
+        helpers.assert_same_shape(prediction, target)
 
         self.prediction = prediction
         self.target = target
@@ -29,7 +29,7 @@ class Loss(object):
         '''
         self.input_grad = self._input_grad()
 
-        assert_same_shape(self.prediction, self.input_grad)
+        helpers.assert_same_shape(self.prediction, self.input_grad)
 
         return self.input_grad
 

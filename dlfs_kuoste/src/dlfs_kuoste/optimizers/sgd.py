@@ -1,8 +1,8 @@
-from dlfs_kuoste import Optimizer
+from dlfs_kuoste import optimizers
 
-class SGD(Optimizer):
+class SGD(optimizers.Optimizer):
     '''
-    Stochasitc gradient descent optimizer.
+    Stochastic gradient descent optimizer.
     '''    
     def __init__(self,
                  lr: float = 0.01) -> None:

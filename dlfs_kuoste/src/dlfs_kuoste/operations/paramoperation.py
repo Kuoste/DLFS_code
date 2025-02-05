@@ -1,7 +1,7 @@
 from numpy import ndarray
-from dlfs_kuoste import *
+from dlfs_kuoste import helpers, operations
 
-class ParamOperation(Operation):
+class ParamOperation(operations.Operation):
     '''
     An Operation with parameters.
     '''
@@ -19,13 +19,13 @@ class ParamOperation(Operation):
         Checks appropriate shapes.
         '''
 
-        assert_same_shape(self.output, output_grad)
+        helpers.assert_same_shape(self.output, output_grad)
 
         self.input_grad = self._input_grad(output_grad)
         self.param_grad = self._param_grad(output_grad)
 
-        assert_same_shape(self.input_, self.input_grad)
-        assert_same_shape(self.param, self.param_grad)
+        helpers.assert_same_shape(self.input_, self.input_grad)
+        helpers.assert_same_shape(self.param, self.param_grad)
 
         return self.input_grad
 

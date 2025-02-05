@@ -1,4 +1,4 @@
-from dlfs_kuoste import Loss
+from dlfs_kuoste.losses.loss import Loss
 from numpy import ndarray
 import numpy as np
 

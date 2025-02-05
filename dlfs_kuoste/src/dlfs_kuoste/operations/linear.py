@@ -1,5 +1,5 @@
 from numpy import ndarray
-from dlfs_kuoste import *
+from dlfs_kuoste.operations import Operation
 
 class Linear(Operation):
     '''
