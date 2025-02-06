@@ -14,10 +14,21 @@ def softmax(x: np.ndarray, axis=None) -> np.ndarray:
     return np.exp(x - special.logsumexp(x, axis=axis, keepdims=True))
 
 def normalize(a: np.ndarray):
+    '''
+    If a = np.array([[0.2], [0.5], [0.8]])
+
+    then return np.array([[0.2, 0.8], 
+                          [0.5, 0.5], 
+                          [0.8, 0.2]])
+    '''
+    # Because probabilities [0,1], this creates a mirrored array
     other = 1 - a
     return np.concatenate([a, other], axis=1)
 
 def unnormalize(a: np.ndarray):
+    '''
+    Reverse normalize method
+    '''
     return a[np.newaxis, 0]
 
 def permute_data(X: np.ndarray, y: np.ndarray):
