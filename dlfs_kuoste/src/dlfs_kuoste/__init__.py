@@ -3,8 +3,8 @@ from . import helpers
 from . import operations
 from . import layers
 from . import losses
-from . import neuralnetworks
 from . import optimizers
+from .neuralnetwork import NeuralNetwork
 from .trainer import Trainer
 
 # from .helpers.sameshape import assert_same_shape

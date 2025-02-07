@@ -1,17 +1,28 @@
 from numpy import ndarray
 import numpy as np
-from dlfs_kuoste import Trainer, losses, operations, neuralnetworks, optimizers, layers
+from dlfs_kuoste import Trainer, NeuralNetwork, losses, operations, optimizers, layers, helpers
 
 
+def eval_regression_model(model: NeuralNetwork,
+                          X_test: ndarray,
+                          y_test: ndarray):
+    '''
+    Compute mae and rmse for a neural network.
+    '''
+    preds = model.forward(X_test)
+    preds = preds.reshape(-1, 1)
+    print("Mean absolute error: {:.2f}".format(helpers.mae(preds, y_test)))
+    print()
+    print("Root mean squared error {:.2f}".format(helpers.rmse(preds, y_test)))
 
-lr = neuralnetworks.NeuralNetwork(
+lr = NeuralNetwork(
     layers=[layers.Dense(neurons=1,
                    activation=operations.Linear())],
     loss=losses.MeanSquaredError(),
     seed=20190501
 )
 
-nn = neuralnetworks.NeuralNetwork(
+nn = NeuralNetwork(
     layers=[layers.Dense(neurons=13,
                    activation=operations.Sigmoid()),
             layers.Dense(neurons=1,
@@ -20,7 +31,7 @@ nn = neuralnetworks.NeuralNetwork(
     seed=20190501
 )
 
-dl = neuralnetworks.NeuralNetwork(
+dl = NeuralNetwork(
     layers=[layers.Dense(neurons=13,
                    activation=operations.Sigmoid()),
             layers.Dense(neurons=13,
@@ -30,6 +41,7 @@ dl = neuralnetworks.NeuralNetwork(
     loss=losses.MeanSquaredError(),
     seed=20190501
 )
+
 
 USE_BOSTON = False
 
@@ -84,7 +96,7 @@ trainer.fit(X_train, y_train, X_test, y_test,
        eval_every = 10,
        seed=20190501);
 print()
-neuralnetworks.eval_regression_model(lr, X_test, y_test)
+eval_regression_model(lr, X_test, y_test)
 print()
 
 learnrate = 0.01
@@ -96,7 +108,7 @@ trainer.fit(X_train, y_train, X_test, y_test,
        eval_every = 10,
        seed=20190501);
 print()
-neuralnetworks.eval_regression_model(nn, X_test, y_test)
+eval_regression_model(nn, X_test, y_test)
 print()
 
 learnrate = 0.01
@@ -108,5 +120,5 @@ trainer.fit(X_train, y_train, X_test, y_test,
        eval_every = 10,
        seed=20190501);
 print()
-neuralnetworks.eval_regression_model(dl, X_test, y_test)
+eval_regression_model(dl, X_test, y_test)
 print()

@@ -1,4 +1,4 @@
-from dlfs_kuoste import neuralnetworks, optimizers, helpers
+from dlfs_kuoste import NeuralNetwork, optimizers, helpers
 from numpy import ndarray
 import numpy as np
 from typing import Tuple, Generator
@@ -9,7 +9,7 @@ class Trainer(object):
     Trains a neural network
     '''
     def __init__(self,
-                 net: neuralnetworks.NeuralNetwork,
+                 net: NeuralNetwork,
                  optim: optimizers.Optimizer) -> None:
         '''
         Requires a neural network and an optimizer in order for training to occur. 
