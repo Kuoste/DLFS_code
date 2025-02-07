@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import ndarray
 from scipy import special
 
 def assert_same_shape(array: np.ndarray, array_grad: np.ndarray):
@@ -9,6 +10,18 @@ def assert_same_shape(array: np.ndarray, array_grad: np.ndarray):
     and second ndarray's shape is {1}.
     '''.format(tuple(array_grad.shape), tuple(array.shape))
     return None
+
+def mae(y_true: ndarray, y_pred: ndarray):
+    '''
+    Compute mean absolute error for a neural network.
+    '''    
+    return np.mean(np.abs(y_true - y_pred))
+
+def rmse(y_true: ndarray, y_pred: ndarray):
+    '''
+    Compute root mean squared error for a neural network.
+    '''
+    return np.sqrt(np.mean(np.power(y_true - y_pred, 2)))
 
 def softmax(x: np.ndarray, axis=None) -> np.ndarray:
     return np.exp(x - special.logsumexp(x, axis=axis, keepdims=True))

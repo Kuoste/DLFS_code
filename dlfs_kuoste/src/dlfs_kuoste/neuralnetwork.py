@@ -21,6 +21,24 @@ class NeuralNetwork(object):
             for layer in self.layers:
                 setattr(layer, "seed", self.seed)        
 
+    def __str__(self) -> str:
+        '''
+        Returns the network specifications as a string.
+        '''
+        t = "    " # indent
+        layers_str = f"{t}layers=[\n"
+        for layer in self.layers:
+            layers_str += f"{t}{t}{layer.__class__.__name__}(neurons={layer.neurons}, activation={layer.activation.__class__.__name__}()),\n"
+        layers_str += f"{t}],\n"
+
+        loss_params = ""
+        if hasattr(self.loss, 'normalize'):
+            loss_params += f"normalize={getattr(self.loss, 'normalize')}"
+
+        loss_str = f"{t}loss={self.loss.__class__.__name__}({loss_params}),\n"
+        seed_str = f"{t}seed={self.seed},"
+        return layers_str + loss_str + seed_str
+
     def forward(self, x_batch: ndarray) -> ndarray:
         '''
         Passes data forward through a series of layers.
@@ -73,26 +91,4 @@ class NeuralNetwork(object):
         for layer in self.layers:
             yield from layer.param_grads
 
-def mae(y_true: ndarray, y_pred: ndarray):
-    '''
-    Compute mean absolute error for a neural network.
-    '''    
-    return np.mean(np.abs(y_true - y_pred))
-
-def rmse(y_true: ndarray, y_pred: ndarray):
-    '''
-    Compute root mean squared error for a neural network.
-    '''
-    return np.sqrt(np.mean(np.power(y_true - y_pred, 2)))
-
-def eval_regression_model(model: NeuralNetwork,
-                          X_test: ndarray,
-                          y_test: ndarray):
-    '''
-    Compute mae and rmse for a neural network.
-    '''
-    preds = model.forward(X_test)
-    preds = preds.reshape(-1, 1)
-    print("Mean absolute error: {:.2f}".format(mae(preds, y_test)))
-    print()
-    print("Root mean squared error {:.2f}".format(rmse(preds, y_test)))
+            
