@@ -11,7 +11,7 @@ class Sigmoid(operations.Operation):
         '''Pass'''
         super().__init__()
 
-    def _output(self) -> ndarray:
+    def _output(self, inference: bool = False) -> ndarray:
         '''
         Compute output.
         '''

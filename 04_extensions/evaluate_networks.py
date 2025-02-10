@@ -11,7 +11,7 @@ from dlfs_kuoste import Trainer
 RANDOM_SEED = 190119
 
 RUN_EVALS_SOFTMAX = False
-RUN_EVALS_SGD = True
+RUN_EVALS_SGD = False
 
 # _train arrays contain 28x28 pixel images, one image per row
 # _test arrays contain labels for the images
@@ -190,3 +190,28 @@ if RUN_EVALS_SGD:
     )
 
     calc_accuracy_model(model, X_test)
+
+model = NeuralNetwork(
+    layers=[
+        layers.Dense(neurons=89, activation=operations.Tanh(), dropout=0.8, weight_init="glorot"),
+        layers.Dense(neurons=10, activation=operations.Linear(), weight_init="glorot"),
+    ],
+    loss=losses.SoftmaxCrossEntropy(),
+    seed=20190119,
+)
+
+optimizer = optimizers.SgdMomentum(0.20, momentum=0.9, final_lr=0.05, decay_type='exponential')
+
+trainer = Trainer(model, optimizer)
+trainer.fit(
+    X_train,
+    train_labels,
+    X_test,
+    test_labels,
+    epochs=25,
+    eval_every=5,
+    seed=20190119,
+    batch_size=60,
+)
+
+calc_accuracy_model(model, X_test)

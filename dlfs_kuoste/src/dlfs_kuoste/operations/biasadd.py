@@ -17,7 +17,7 @@ class BiasAdd(operations.ParamOperation):
         
         super().__init__(B)
 
-    def _output(self) -> ndarray:
+    def _output(self, inference: bool = False) -> ndarray:
         '''
         Compute output.
         '''
