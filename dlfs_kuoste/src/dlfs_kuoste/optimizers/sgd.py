@@ -1,20 +1,10 @@
 from dlfs_kuoste import optimizers
 
-class SGD(optimizers.Optimizer):
-    '''
-    Stochastic gradient descent optimizer.
-    '''    
-    def __init__(self,
-                 lr: float = 0.01) -> None:
-        '''Pass'''
-        super().__init__(lr)
+class Sgd(optimizers.Optimizer):
+    def __init__(self, lr: float = 0.01, final_lr: float = 0, decay_type: optimizers.DecayType = None) -> None:
+        super().__init__(lr, final_lr, decay_type)
 
-    def step(self):
-        '''
-        For each parameter, adjust in the appropriate direction, with the magnitude of the adjustment 
-        based on the learning rate.
-        '''
-        for (param, param_grad) in zip(self.net.params(),
-                                       self.net.param_grads()):
+    def _update_rule(self, **kwargs) -> None:
 
-            param -= self.lr * param_grad
+        update = self.lr * kwargs["grad"]
+        kwargs["param"] -= update

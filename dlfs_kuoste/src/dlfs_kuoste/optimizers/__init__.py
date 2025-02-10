@@ -1,2 +1,4 @@
 from .optimizer import Optimizer
-from .sgd import SGD
+from .optimizer import DecayType
+from .sgd import Sgd
+from .sgdmomentum import SgdMomentum
