@@ -89,7 +89,7 @@ y_train, y_test = to_2d_np(y_train), to_2d_np(y_test)
 
 learnrate = 0.001
 print("Training linear regression model, learning rate ", learnrate)
-trainer = Trainer(lr, optimizers.SGD(lr=learnrate))
+trainer = Trainer(lr, optimizers.Sgd(lr=learnrate))
 
 trainer.fit(X_train, y_train, X_test, y_test,
        epochs = 50,
@@ -101,7 +101,7 @@ print()
 
 learnrate = 0.01
 print("Training neural network model. learning rate ", learnrate)
-trainer = Trainer(nn, optimizers.SGD(lr=learnrate))
+trainer = Trainer(nn, optimizers.Sgd(lr=learnrate))
 
 trainer.fit(X_train, y_train, X_test, y_test,
        epochs = 50,
@@ -113,7 +113,7 @@ print()
 
 learnrate = 0.01
 print("Training deep neural network model, learning rate ", learnrate)
-trainer = Trainer(dl, optimizers.SGD(lr=learnrate))
+trainer = Trainer(dl, optimizers.Sgd(lr=learnrate))
 
 trainer.fit(X_train, y_train, X_test, y_test,
        epochs = 50,
