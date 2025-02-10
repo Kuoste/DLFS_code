@@ -10,7 +10,7 @@ class Linear(Operation):
         '''Pass'''
         super().__init__()
 
-    def _output(self) -> ndarray:
+    def _output(self, inference: bool = False) -> ndarray:
         '''Pass through'''
         return self.input_
 

@@ -59,7 +59,7 @@ class Trainer(object):
 
                 if conv_testing:
                     if ii % 10 == 0:
-                        test_preds = self.net.forward(X_batch)
+                        test_preds = self.net.forward(X_batch, inference = True)
                         batch_loss = self.net.loss.forward(test_preds, y_batch)
                         print("batch", ii, "loss", batch_loss)
 
@@ -80,7 +80,7 @@ class Trainer(object):
 
             if (e + 1) % eval_every == 0:
 
-                test_preds = self.net.forward(X_test)
+                test_preds = self.net.forward(X_test, inference = True)
                 loss = self.net.loss.forward(test_preds, y_test)
 
                 if early_stopping:

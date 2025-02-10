@@ -8,14 +8,14 @@ class Operation(object):
     def __init__(self):
         pass
 
-    def forward(self, input_: ndarray):
+    def forward(self, input_: ndarray, inference: bool = False) -> ndarray:
         '''
         Stores input in the self._input instance variable
         Calls the self._output() function.
         '''
         self.input_ = input_
 
-        self.output = self._output()
+        self.output = self._output(inference=inference)
 
         return self.output
 
@@ -33,7 +33,7 @@ class Operation(object):
         return self.input_grad
 
 
-    def _output(self) -> ndarray:
+    def _output(self, inference: bool = False) -> ndarray:
         '''
         The _output method must be defined for each Operation
         '''

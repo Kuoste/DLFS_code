@@ -10,11 +10,11 @@ class LayerBlock(object):
         super().__init__()
         self.layers = layers
 
-    def forward(self, X_batch: np.ndarray) -> np.ndarray:
+    def forward(self, X_batch: np.ndarray, inference: bool = False) -> np.ndarray:
 
         X_out = X_batch
         for layer in self.layers:
-            X_out = layer.forward(X_out)
+            X_out = layer.forward(X_out, inference)
 
         return X_out
 

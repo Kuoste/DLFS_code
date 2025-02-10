@@ -13,7 +13,7 @@ class WeightMultiply(operations.ParamOperation):
         '''
         super().__init__(W)
 
-    def _output(self) -> ndarray:
+    def _output(self, inference: bool = False) -> ndarray:
         '''
         Compute output.
         '''

@@ -25,7 +25,7 @@ class Layer(object):
         '''
         raise NotImplementedError()
 
-    def forward(self, input_: ndarray) -> ndarray:
+    def forward(self, input_: ndarray, inference: bool = False) -> ndarray:
         '''
         Passes input forward through a series of operations
         ''' 
@@ -37,7 +37,7 @@ class Layer(object):
 
         for operation in self.operations:
 
-            input_ = operation.forward(input_)
+            input_ = operation.forward(input_, inference)
 
         self.output = input_
 
@@ -51,7 +51,7 @@ class Layer(object):
 
         helpers.assert_same_shape(self.output, output_grad)
 
-        for op in reversed(self.operations):
+        for op in self.operations[::-1]: # reverse the operations
             output_grad = op.backward(output_grad)
 
         input_grad = output_grad
