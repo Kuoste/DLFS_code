@@ -6,3 +6,5 @@ from .sigmoid import Sigmoid
 from .tanh import Tanh
 from .weightmultiply import WeightMultiply
 from .dropout import Dropout
+from .conv2d import Conv2D
+from .flatten import Flatten
